@@ -16,3 +16,7 @@ Route::get('/service','UserController@services');
 Route::get('/about','UserController@about');
 Route::get('/contact','UserController@contact');
 
+//posts
+Route::resource('posts', 'PostsController');
+
+
