@@ -4,5 +4,8 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//node
+@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+
+//custom
+@import 'custom';
