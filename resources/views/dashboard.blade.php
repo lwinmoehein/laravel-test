@@ -7,14 +7,36 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
+                <div class="card-body alert">
+                        <a href="posts/create" class="btn btn-success">Create Post</a>
+
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
-                    @endif
+                    @endif    
+                    @if (count($posts)>0)
+                    @foreach ($posts as $post )
+                        <div class='well'>
+                        <a href="posts/{{$post->id}}">{{$post->title}} </a>
+                        <small>{{$post->created_at}}</small>
 
-                    You are logged in!
+                        
+                        </div>
+                        <a href="../posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
+    {{ Form::open(['action' => ['PostsController@destroy',$post->id],'method'=>'POST','class'=>'pull-right']) }}
+    
+            <input name="_method" type="hidden" value="DELETE">
+        
+       {!! Form::submit('DELETE', ['class'=>'btn btn-danger']) !!}
+       
+   {!!Form::close() !!}
+                    @endforeach
+                @else
+                    <div class="well">
+                        No posts found
+                    </div>
+                @endif    
                 </div>
             </div>
         </div>

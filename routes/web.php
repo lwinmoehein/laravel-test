@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','UserController@index');
+Route::get('/','DashBoardController@index');
 Route::get('/service','UserController@services');
 Route::get('/about','UserController@about');
 Route::get('/contact','UserController@contact');
