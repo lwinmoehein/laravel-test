@@ -13,6 +13,7 @@
         {{ Form::textarea('body',$post->body,['class'=>'form-control','placeholder'=>'Body','id'=>'article-ckeditor'])}}
     </div>
     <input name="_method" type="hidden" value="PUT">
+    {{Form::file('cover_image')}}
     {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
     
 {!!Form::close() !!}

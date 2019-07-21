@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
           <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
+              <li class="active"><a href="posts">Home</a></li>
               <li><a href="about">About</a></li>
               <li><a href="contact">Contact</a></li>
               <li><a href="service">Services</a></li>

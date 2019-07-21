@@ -7,8 +7,18 @@
         <div class='well'>
         <a href="posts/{{$post->id}}">{{$post->title}} </a>
         <small>{{$post->created_at}}</small>
-        </div>
-       
+        {{--  @if (Auth::user()->id==$post->user_id)
+        <a href="posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
+        {{ Form::open(['action' => ['PostsController@destroy',$post->id],'method'=>'POST','class'=>'pull-right']) }}
+        
+                <input name="_method" type="hidden" value="DELETE">
+            
+           {!! Form::submit('DELETE', ['class'=>'btn btn-danger']) !!}
+           
+       {!!Form::close() !!}
+        @endif  --}}
+    </div>
+
     @endforeach
     {{$posts->links()}}
 @else

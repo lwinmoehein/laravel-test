@@ -12,6 +12,11 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }
+
     public function index()
     {
         //
@@ -46,13 +51,32 @@ class PostsController extends Controller
         //
         $this->validate($request,[
             'title'=>'required',
-            'body'=>'required'
+            'body'=>'required',
+            'cover_image'=>'image|nullable|max:1999'
         ]); 
+        $filenametostore='';
+        //Handler file upload
+        if($request->hasFile('cover_image')){
+          //get file name with extension
+          $fileNameWithExt=$request->file('cover_image')->getClientOriginalName();
+          //get just filename
+          $filename=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+          //get just fileextension
+          $extension=$request->file('cover_image')->getClientOriginalExtension();
+          //file name to store
+          $filenametostore=$filename."_".time()."_.".$extension;
+
+          $path=$request->file('cover_image')->storeAs('public/coverimages',$filenametostore);
+
+        }else{
+            $filetostore="noimg.jpeg";
+        }
 
         $post=new Post();
         $post->title=$request->input('title');
         $post->body=$request->input('body');
         $post->user_id=auth()->user()->id;
+        $post->cover_image=$filenametostore;
         $post->save();
         return redirect('posts')->with('success','Post Created');
 
@@ -68,6 +92,8 @@ class PostsController extends Controller
     {
         //
         $post= Post::find($id);
+
+        
         return view('posts.show')->with('post',$post);
     }
 
@@ -84,6 +110,9 @@ class PostsController extends Controller
        
 
         $post=Post::find($id);
+        $userid=$post->user_id;
+        $uid=auth()->user()->id;
+
         return view('posts.edit')->with('post',$post);
         
     }
@@ -107,6 +136,21 @@ class PostsController extends Controller
         $post=Post::find($id);
         $post->title=$request->input('title');
         $post->body=$request->input('body');
+        if($request->hasFile('cover_image')){
+            //get file name with extension
+            $fileNameWithExt=$request->file('cover_image')->getClientOriginalName();
+            //get just filename
+            $filename=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
+            //get just fileextension
+            $extension=$request->file('cover_image')->getClientOriginalExtension();
+            //file name to store
+            $filenametostore=$filename."_".time()."_.".$extension;
+  
+            $path=$request->file('cover_image')->storeAs('public/coverimages',$filenametostore);
+            $post->cover_image=$filenametostore;
+
+  
+          }
 
         $post->save();
         return redirect('posts')->with('success','Post Edited');

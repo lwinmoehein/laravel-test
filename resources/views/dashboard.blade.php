@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Your Posts</div>
 
                 <div class="card-body alert">
                         <a href="posts/create" class="btn btn-success">Create Post</a>
@@ -23,7 +23,7 @@
 
                         
                         </div>
-                        <a href="../posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
+                        <a href="posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
     {{ Form::open(['action' => ['PostsController@destroy',$post->id],'method'=>'POST','class'=>'pull-right']) }}
     
             <input name="_method" type="hidden" value="DELETE">
